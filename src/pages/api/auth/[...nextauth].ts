@@ -15,7 +15,6 @@ export default NextAuth({
     },
     async signIn({ user }): Promise<boolean> {
       const { email } = user;
-      console.log(email);
       return true;
     },
   },

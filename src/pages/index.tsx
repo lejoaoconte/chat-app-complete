@@ -1,6 +1,6 @@
 import { GetServerSideProps } from "next";
 import { getSession } from "next-auth/react";
-import { Loading } from "components/System/Loading";
+import { Loading } from "components/system/Loading";
 
 export default function Home() {
   return <Loading />;
