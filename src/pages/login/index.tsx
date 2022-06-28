@@ -9,7 +9,7 @@ export default function Login() {
   return (
     <>
       <Head>
-        <title>Login | ChatApp</title>
+        <title>Login | chat.group</title>
       </Head>
       <Container>
         <div>

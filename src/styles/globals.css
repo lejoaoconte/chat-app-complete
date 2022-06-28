@@ -28,11 +28,11 @@ button {
   --gray-850: #1f2729;
   --gray-900: #121214;
 
-  --primary: #589fff;
-  --primary-dark: #242c88;
+  --primary: #d3a621;
+  --primary-light: #ffc408;
 
-  --secondary: #ffc408;
-  --secondary-dark: #d3a621;
+  --secondary: #589fff;
+  --secondary-dark: #242c88;
 }
 html,
 body,

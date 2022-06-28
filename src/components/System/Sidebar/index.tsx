@@ -1,29 +1,32 @@
 import { signOut } from "next-auth/react";
-import { useState } from "react";
 import styled from "styled-components";
+import { FaSignOutAlt } from "react-icons/fa";
 
-interface ContainerProps {
-  open: boolean;
-}
-
-const Container = styled.div<ContainerProps>`
-  width: ${(props) => (props.open ? "250px" : "80px")};
-  background: red;
+const Container = styled.div`
+  width: 80px;
+  background: var(--primary);
   height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
 
-  transition: 1s width linear;
-
   div {
     padding: 1rem 0.25rem;
     width: 100%;
+  }
 
-    .buttons {
-      margin-left: auto;
-      margin-right: auto;
+  .signout {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    button {
+      border: none;
+      background: none;
+      width: fit-content;
+      padding: 1rem;
     }
   }
 
@@ -31,24 +34,16 @@ const Container = styled.div<ContainerProps>`
     flex: 1;
     width: 100%;
     height: 100%;
-    background: green;
   }
 `;
 
 export function Siderbar() {
-  const [open, setOpen] = useState<boolean>(false);
-
   return (
-    <Container open={open}>
-      <div>
-        <button className="buttons" onClick={() => setOpen(!open)}>
-          click
-        </button>
-      </div>
+    <Container>
       <div className="contacts"></div>
-      <div>
+      <div className="signout">
         <button className="signout" onClick={() => signOut()}>
-          sair
+          <FaSignOutAlt size="24px" color="#ffffff" />
         </button>
       </div>
     </Container>

@@ -3,7 +3,13 @@ import React, { useEffect, useRef, useState } from "react";
 import io from "socket.io-client";
 
 //import { useAppSelector } from "redux/hooks/useAppSelector";
-import { ChatComponent, Container, MessageArea, SendMessage } from "./styles";
+import {
+  ChatArea,
+  ChatComponent,
+  Container,
+  MessageArea,
+  SendMessage,
+} from "./styles";
 import { Button } from "components/form/Button";
 
 import { FaPaperPlane } from "react-icons/fa";
@@ -14,6 +20,7 @@ import { getSession } from "next-auth/react";
 import { Siderbar } from "components/system/Sidebar";
 
 import { SocketIoProps, UserProps } from "pages/api/socket";
+import Head from "next/head";
 
 interface PageProps {
   user: UserProps;
@@ -46,6 +53,7 @@ export default function Chat({ user }: PageProps) {
     e.preventDefault();
     const name = user.name;
     const image = user.image;
+    console.log(image);
     socketRef.current?.emit("message", { name, message, image });
     e.preventDefault();
     setMessage("");
@@ -72,19 +80,29 @@ export default function Chat({ user }: PageProps) {
 
   return (
     <>
-      <Siderbar />
+      <Head>
+        <title>Chat Geral | chat.group</title>
+      </Head>
       <Container>
-        <ChatComponent>{renderChatFunction()}</ChatComponent>
-        <SendMessage>
-          <form onSubmit={onMessageSubmit}>
-            <Input
-              setValue={setMessage}
-              value={message}
-              placeholder="Digite sua mensagem..."
-            />
-            <Button loading={false} text="" Icon={FaPaperPlane} type="submit" />
-          </form>
-        </SendMessage>
+        <Siderbar />
+        <ChatArea>
+          <ChatComponent>{renderChatFunction()}</ChatComponent>
+          <SendMessage>
+            <form onSubmit={onMessageSubmit}>
+              <Input
+                setValue={setMessage}
+                value={message}
+                placeholder="Digite sua mensagem..."
+              />
+              <Button
+                loading={false}
+                text=""
+                Icon={FaPaperPlane}
+                type="submit"
+              />
+            </form>
+          </SendMessage>
+        </ChatArea>
       </Container>
     </>
   );
