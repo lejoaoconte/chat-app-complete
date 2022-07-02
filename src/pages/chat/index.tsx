@@ -16,7 +16,7 @@ import { Input } from "components/form/Input";
 import { Button } from "components/form/Button";
 
 import { FaUserFriends } from "react-icons/fa";
-import { FormArea } from "components/form/formArea";
+import { FormArea } from "components/form/FormArea";
 
 interface PageProps {
   user: UserProps;
