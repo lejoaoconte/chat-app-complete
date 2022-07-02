@@ -48,7 +48,7 @@ export const Container = styled.div`
     border: 0;
     color: var(--white);
     border-radius: 0.25rem;
-    background: var(--primary-dark);
+    background: var(--secondary);
     font-size: 1rem;
     font-weight: bold;
     text-transform: uppercase;
@@ -66,7 +66,7 @@ export const Container = styled.div`
     transition: width 1s;
 
     &:hover {
-      background: var(--primary);
+      background: var(--secondary-dark);
       width: 180px;
     }
 

@@ -1,81 +1,47 @@
 import React, { useEffect, useRef, useState } from "react";
 
+import { GetServerSideProps } from "next";
+import Head from "next/head";
+import { getSession } from "next-auth/react";
+
 import io from "socket.io-client";
 
-//import { useAppSelector } from "redux/hooks/useAppSelector";
-import {
-  ChatArea,
-  ChatComponent,
-  Container,
-  MessageArea,
-  SendMessage,
-} from "./styles";
+import { Container } from "./styles";
+
+import { UserProps } from "pages/api/socket";
+
+import { Room } from "components/system/Room";
+import { Siderbar } from "components/system/Sidebar";
+import { Input } from "components/form/Input";
 import { Button } from "components/form/Button";
 
-import { FaPaperPlane } from "react-icons/fa";
-import { Input } from "components/form/Input";
-
-import { GetServerSideProps } from "next";
-import { getSession } from "next-auth/react";
-import { Siderbar } from "components/system/Sidebar";
-
-import { SocketIoProps, UserProps } from "pages/api/socket";
-import Head from "next/head";
+import { FaUserFriends } from "react-icons/fa";
+import { FormArea } from "components/form/formArea";
 
 interface PageProps {
   user: UserProps;
 }
 
 export default function Chat({ user }: PageProps) {
-  const [message, setMessage] = useState<string>("");
-  const [chat, setChat] = useState<any>([]);
+  const [room, setRoom] = useState<string>("");
+  const [showChat, setShowChat] = useState<boolean>(false);
   const socketRef = useRef<any>();
 
   useEffect(() => {
     socketInitializer();
-  }, [chat]);
+  }, []);
 
-  const socketInitializer = async () => {
+  async function socketInitializer() {
     await fetch("/api/socket");
     socketRef.current = io();
-
-    socketRef.current.on(
-      "message",
-      ({ name, message, image, email }: SocketIoProps) => {
-        setChat([...chat, { name, message, image, email }]);
-      }
-    );
-
     return () => socketRef.current?.disconnect();
-  };
-
-  function onMessageSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    const name = user.name;
-    const image = user.image;
-    console.log(image);
-    socketRef.current?.emit("message", { name, message, image });
-    e.preventDefault();
-    setMessage("");
   }
 
-  function renderChatFunction() {
-    return (
-      <div>
-        {chat.map(({ name, message, image }: SocketIoProps, index: number) => (
-          <MessageArea
-            className={name === user.name ? "userMessage" : ""}
-            key={index}
-          >
-            <div>
-              <img src={image} alt={name} />
-              <p>{name}:</p>
-            </div>
-            <span>{message}</span>
-          </MessageArea>
-        ))}
-      </div>
-    );
+  function joinRoom() {
+    if (room !== "") {
+      socketRef.current?.emit("join_room", room);
+      setShowChat(true);
+    }
   }
 
   return (
@@ -85,24 +51,30 @@ export default function Chat({ user }: PageProps) {
       </Head>
       <Container>
         <Siderbar />
-        <ChatArea>
-          <ChatComponent>{renderChatFunction()}</ChatComponent>
-          <SendMessage>
-            <form onSubmit={onMessageSubmit}>
-              <Input
-                setValue={setMessage}
-                value={message}
-                placeholder="Digite sua mensagem..."
-              />
-              <Button
-                loading={false}
-                text=""
-                Icon={FaPaperPlane}
-                type="submit"
-              />
-            </form>
-          </SendMessage>
-        </ChatArea>
+        {!showChat ? (
+          <FormArea
+            background="none"
+            border="none"
+            borderRadius="0px"
+            onSubmit={joinRoom}
+            padding="0px"
+            width="320px"
+          >
+            <Input
+              setValue={setRoom}
+              value={room}
+              placeholder="Digite o nome da sala..."
+            />
+            <Button
+              loading={false}
+              text=""
+              Icon={FaUserFriends}
+              type="submit"
+            />
+          </FormArea>
+        ) : (
+          <Room socket={socketRef.current} user={user} room={room} />
+        )}
       </Container>
     </>
   );

@@ -1,4 +1,4 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextApiRequest } from "next";
 import { Server, Socket } from "Socket.IO";
 
 export interface UserProps {
@@ -17,8 +17,20 @@ const SocketHandler = (req: NextApiRequest, res: any) => {
     res.socket.server.io = io;
 
     io.on("connection", (socket: Socket) => {
-      socket.on("message", ({ name, message, image, email }: SocketIoProps) => {
-        io.emit("message", { name, message, image, email });
+      console.log(`User Connected: ${socket.id}`);
+
+      socket.on("join_room", (room: string) => {
+        socket.join(room);
+        console.log(`User with ID: ${socket.id} joined room: ${room}`);
+      });
+
+      socket.on("send_message", (data: SocketIoProps, room: string) => {
+        console.log(data)
+        socket.to(room).emit("receive_message", data);
+      });
+
+      socket.on("disconnect", () => {
+        console.log("User Disconnected", socket.id);
       });
     });
   }
