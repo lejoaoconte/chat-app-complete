@@ -67,8 +67,7 @@ export default function Chat({ user }: PageProps) {
             />
             <Button
               loading={false}
-              text=""
-              Icon={FaUserFriends}
+              text="Entrar"
               type="submit"
             />
           </FormArea>
