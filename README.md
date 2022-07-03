@@ -4,6 +4,12 @@
 
 That's project involved the creation of a complete chat application which involves validation of user by Google Auth and creation of rooms to group chat with Socket.io.
 
+Demonstration video below:
+
+<div align="center">
+  <a href="https://www.youtube.com/watch?v=6FeDjrNK7WE" target="_blank"><img src="https://img.youtube.com/vi/6FeDjrNK7WE/0.jpg" alt="Demonstration Chat APP"></a>
+</div>
+
 ## Description
 
 The main idea of this application is created a complete chat which login and auth system, without use of strongest back-end, but which we could understand the concepts as NextAuth, Socket.io, and how work back-end in Next.js and how we could applying this in a application.
