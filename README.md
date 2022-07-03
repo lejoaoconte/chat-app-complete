@@ -1,34 +1,73 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<div style="text-align:center;"><img src="https://raw.githubusercontent.com/lejoaoconte/chat-app-complete/be3a7ee8c91035a90fe10a55f772a2c7fea082ce/public/logo.svg" width="150px"></div>
+
+# Complete Chat App - chat.group
+
+That's project involved the creation of a complete chat application which involves validation of user by Google Auth and creation of rooms to group chat with Socket.io.
+
+## Description
+
+The main idea of this application is created a complete chat which login and auth system, without use of strongest back-end, but which we could understand the concepts as NextAuth, Socket.io, and how work back-end in Next.js and how we could applying this in a application.
+
+In the path <a href="https://github.com/lejoaoconte/chat-app-complete/tree/main/src/pages/api">src/pages/api</a> have the back-end part of system, which involve just two files, one on path auth which as the name said it`s the authentication part and the socket.io which is the stream part. All authentication was made with GoogleProvider of NextAuth providers.
+
+Finally in the front-end we treat the authentication with getServerSideProps function native of Next and the stream chat with Socket.io-client.
+
+The idea in here its to train to posibles future ideas which involves this concepts and maybe use this code in the future.
 
 ## Getting Started
 
-First, run the development server:
+### Dependencies
 
-```bash
-npm run dev
-# or
-yarn dev
+The Node.js version of this project is 16.14.2 and the follow libraries which are used are below:
+
+|      library      | version |
+|:-----------------:|:-------:|
+| next              | 12.2.0  |
+| next-auth         | 4.7.0   |
+| react             | 18.2.0  |
+| react-dom         | 18.2.0  |
+| react-icons       | 4.4.0   |
+| socket.io         | 4.5.1   |
+| socket.io-client  | 4.5.1   |
+| styled-components | 5.3.5   |
+
+
+### Installing and Executing program
+
+If you decide to see the project its just to follow the sequences below:
+
+First of all clone the repository and enter in Visual Code your in your favorite code editor.
+
+```
+$ git clone https://github.com/lejoaoconte/chat-app-complete.git
+$ cd chat-app-complete
+$ code .
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+After it it's necessary to create a Google API Key and API Secret which you can see how do on that's documentation: <a href="https://developers.google.com/adwords/api/docs/guides/authentication" target="_blank">click here</a>. And finally create a JWT random key just to next don't generate errors and warnings.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+```
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+NEXTAUTH_URL='http://localhost:3000'
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+JWT_SECRET=
+```
 
-## Learn More
+And finally run
 
-To learn more about Next.js, take a look at the following resources:
+```
+$ npm run dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+and access http://localhost:3000.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Authors
 
-## Deploy on Vercel
+João Conte 
+LinkedIn: [/in/lejoaoconte](https://www.linkedin.com/in/lejoaoconte/)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## License
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+This project is licensed under the MIT License - see the <a href="https://github.com/lejoaoconte/chat-app-complete/blob/main/LICENSE.md" target="_blank">LICENSE.md</a> file for details
