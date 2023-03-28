@@ -1,5 +1,5 @@
 import { NextApiRequest } from "next";
-import { Server, Socket } from "Socket.IO";
+import { Server, Socket } from "socket.io";
 
 export interface UserProps {
   email: string;
